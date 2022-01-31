@@ -11,4 +11,4 @@ Bert fine-tuning codes are adapted from:https://mccormickml.com/2019/07/22/BERT-
 - 6_TEST_bias_mitigation_MLM.ipynb: Code for evaluation
 
 # Requirements
-transformers==4.1.0
+transformers==4.10.0
