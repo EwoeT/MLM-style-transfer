@@ -8,14 +8,14 @@
 - mitigation_model
 - generate_neutral_latent_embedding_model
 - bias_class_discriminator <br/>
-ToO define parameters, wee  __src__.
+To define parameters, wee  __src__.
 
 ```
 ./train_mitigation_model.sh "binary_classification_data.csv" "bias_only.train.en" "bias_only.dev.en" "neutral_only.train.en" "neutral_only.dev.en"
 ```
 ## To mitigate text:
 ```
-python f_TEST_bias_mitigation_MLM.py \
+python test_bias_mitigation_MLM.py \
 -test_dataset_path "bias_only.test.en" \
 -mitigation_model_path "mitigation_model.pth" \
 -generate_neutral_latent_embedding_model_path "generate_neutral_latent_embedding_model.pth" \
