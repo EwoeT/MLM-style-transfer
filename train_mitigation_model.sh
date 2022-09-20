@@ -10,8 +10,6 @@ python src\bias_class_discriminator.py \
 -data_path $classification_data_path
 
 python src\bias_classification_straight_through.py \
--train_dataset_path "binary_bias_classification_train_dataset.pt" \
--val_dataset_path "binary_bias_classification_val_dataset.pt"
 
 python src\latent_embedding_classifier.py \
 -train_dataset_path "binary_bias_classification_train_dataset.pt" \
