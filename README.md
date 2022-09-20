@@ -9,7 +9,15 @@
 - generate_neutral_latent_embedding_model
 - bias_class_discriminator
 ```
-!./train_mitigation_model.sh "binary_classification_data.csv" "bias_only.train.en" "bias_only.dev.en" "neutral_only.train.en" "neutral_only.dev.en"
+./train_mitigation_model.sh "binary_classification_data.csv" "bias_only.train.en" "bias_only.dev.en" "neutral_only.train.en" "neutral_only.dev.en"
+```
+## To use system:
+```
+python f_TEST_bias_mitigation_MLM.py \
+-test_dataset_path "bias_only.test.en" \
+-mitigation_model_path "mitigation_model.pth" \
+-generate_neutral_latent_embedding_model_path "generate_neutral_latent_embedding_model.pth" \
+-bias_class_discriminator_path "bias_class_discriminator.pth"
 ```
 
 # Requirements
