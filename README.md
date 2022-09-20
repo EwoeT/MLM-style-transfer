@@ -5,9 +5,9 @@
 
 
 ## To train all mitigation components: 
--mitigation_model, 
--generate_neutral_latent_embedding_model, 
--bias_class_discriminator:
+- mitigation_model
+- generate_neutral_latent_embedding_model
+- bias_class_discriminator
 ```
 !./train_mitigation_model.sh "binary_classification_data.csv" "bias_only.train.en" "bias_only.dev.en" "neutral_only.train.en" "neutral_only.dev.en"
 ```
