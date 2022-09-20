@@ -1,14 +1,29 @@
 # MLM-style-transfer
 
-Bert model is adapted from huggingface https://huggingface.co/transformers/model_doc/bert.html
-Bert fine-tuning codes are adapted from:https://mccormickml.com/2019/07/22/BERT-fine-tuning/
+## 1. Data prep
+- We use code from https://github.com/kanekomasahiro/context-debias/blob/main/script/preprocess.sh to extract senteces containing attribute abd stereotype words. <br/>
+- Extracted sentences are available https://drive.google.com/drive/folders/1dT62-X2mDBjpe8yvd6flJizeF8mcbPpN?usp=sharing
+## 2. Data tokenization
+- Tokenize sentences; positional indices of attribute/target words are kept for embedding extraction.  Use attribute for training the detector and stereotypes to test for bias only<br/>
+- Args: <br/>
+-model_type: type of model "albert-large" or "bert-large <br/>
+-data_types: **"attributes"** for generating tokens for attributes and **"stereotypes"** for generating tokens for stereotypes. <br/>
+-data_path: path to data <br/>
+-save_tokenized_data_path: path to save tokenized data <br/>
+-female_list_path: path to female list (attributes or stereotypes) <br/>
+-male_list_path: path to male attributes (attributes or stereotypes) <br/>
+-all_attributes_and_names_path: path to file containing female and male attributes and names to exclude from sentences containing stereotypes (optional). Removes gender from the context of stereotypes
+-sequence_length: max number of tokens to generate per sentence (optional, default: 4) <br/>
 
-- 1_bias_class_discriminator.ipynb: To train classifier for bias detection
-- 2_bias_classification_straight_through.ipynb: To trian classifier with straight through technique
-- 3_latent_embedding_classifier.ipynb: Trains classifier to detect if latent encoding is biased or neutral (in the case of bias mitigation) / male or female (in the case of gender obfuscation)
-- 4_generate_neutral_latent_representation.ipynb: Generates disentangled (neutral) latent representation
-- 5_bias_mitigation_MLM.ipynb: Main style transfer code
-- 6_TEST_bias_mitigation_MLM.ipynb: Code for evaluation
+- To train all mitigation components - mitigation_model, generate_neutral_latent_embedding_model, bias_class_discriminator:
+```
+!./train_mitigation_model.sh "binary_classification_data.csv" "bias_only.train.en" "bias_only.dev.en" "neutral_only.train.en" "neutral_only.dev.en"
+```
 
 # Requirements
-transformers==4.10.0
+torch==1.12.1 <br/>
+transformers==4.21.2 <br/>
+numpy<br/>
+
+
+
