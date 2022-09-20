@@ -36,7 +36,7 @@ parser.add_argument("-bias_class_discriminator_path", default="src/bias_class_di
 parser.add_argument("-sequence_length", type=int, default=300)
 parser.add_argument("-seed_value", type=int, default=42)
 parser.add_argument("-output_path", default="output.txt")
-# parser.add_argument("-epochs", type=int, default=4)
+parser.add_argument("-threshold_value", type=float, default=0.1)
 # parser.add_argument("-batch_size", type=int, default=32)
 args = parser.parse_args()
 config = vars(args)
@@ -49,6 +49,7 @@ bias_class_discriminator_path = args.bias_class_discriminator_path
 # mitigation_model_path = args.mitigation_model_path
 # epochs = args.epochs
 # batch_size = args.batch_size
+threshold_value = args.threshold_value
 seed_val = args.seed_value
 output_path = args.output_path
 seq_len = args.sequence_length
@@ -233,7 +234,7 @@ def mask_polarized_tokens(text):
     important_words =[]
     count = 0
     for key, score in enumerate(scores):
-        if score>0.1:
+        if score>threshold_value:
             important_words.append(tokens_list[key])
         if len(important_words) == 0:
             important_words.append(tokens_list[0])
@@ -342,10 +343,10 @@ start_time = time.time()
 
 
 
-# Tracking variables 
-total_eval_masked_accuracy = 0
-total_eval_loss = 0
-nb_eval_steps = 0
+# # Tracking variables 
+# total_eval_masked_accuracy = 0
+# total_eval_loss = 0
+# nb_eval_steps = 0
 
 
 # Evaluate data for one epoch
