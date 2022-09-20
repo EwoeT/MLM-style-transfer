@@ -12,9 +12,8 @@
 # Requirements
 torch==1.12.1 <br/>
 transformers==4.21.2 <br/>
+lime==0.2.0.1 <br/>
+sentence_transformers==2.2.2 <br/>
+nltk==3.7 <br/>
 numpy <br/>
-lime-0.2.0.1 <br/>
-sentence_transformers-2.2.2 <br/>
-nltk-3.7 <br/>
-
 
