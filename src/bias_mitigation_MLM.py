@@ -27,7 +27,7 @@ else:
 parser = argparse.ArgumentParser()
 parser.add_argument("-train_dataset_path", required=True)
 parser.add_argument("-val_dataset_path", required=True)
-parser.add_argument("-test_dataset_path", required=True)
+# parser.add_argument("-test_dataset_path", required=True)
 parser.add_argument("-sequence_length", type=int, default=100)
 parser.add_argument("-gamma", type=float, default=0.5)
 parser.add_argument("-seed_value", type=int, default=42)
@@ -39,7 +39,7 @@ config = vars(args)
   
 train_dataset_path = args.train_dataset_path
 val_dataset_path = args.val_dataset_path
-test_dataset_path = args.test_dataset_path
+# test_dataset_path = args.test_dataset_path
 gamma = args.gamma,
 epochs = args.epochs
 batch_size = args.batch_size
@@ -53,10 +53,10 @@ seq_len = args.sequence_length
 ########################### Load dataset ###########################
 X_train = pd.read_csv(train_dataset_path, header=None)
 X_val = pd.read_csv(val_dataset_path, header=None)
-X_test = pd.read_csv(test_dataset_path, header=None)
+# X_test = pd.read_csv(test_dataset_path, header=None)
 X_train = X_train[0].values
 X_val = X_val[0].values
-X_test = X_test[0].values
+# X_test = X_test[0].values
 
 
 ########################### tokenize dataset ###########################
@@ -121,7 +121,7 @@ def tokenize(data):
 
 train_input_ids, train_target_labels, train_attention_masks = tokenize(X_train)
 val_input_ids, val_target_labels, val_attention_masks = tokenize(X_val)
-test_input_ids, test_target_labels, test_attention_masks = tokenize(X_test)
+# test_input_ids, test_target_labels, test_attention_masks = tokenize(X_test)
 
 print('Original: ', X_train[0])
 print('Token IDs:', train_input_ids[0])
@@ -133,11 +133,11 @@ from torch.utils.data import TensorDataset
 
 train_dataset = TensorDataset(train_input_ids, train_target_labels, train_attention_masks)
 val_dataset = TensorDataset(val_input_ids, val_target_labels, val_attention_masks)
-test_dataset = TensorDataset(test_input_ids, test_target_labels, test_attention_masks)
+# test_dataset = TensorDataset(test_input_ids, test_target_labels, test_attention_masks)
 
 print('{:>5,} training samples'.format(len(train_dataset)))
 print('{:>5,} validation samples'.format(len(val_dataset)))
-print('{:>5,} test samples'.format(len(test_dataset)))
+# print('{:>5,} test samples'.format(len(test_dataset)))
 
 
 ########################### Load model ###########################
@@ -181,12 +181,12 @@ validation_dataloader = DataLoader(
             batch_size = batch_size # Evaluate with this batch size.
         )
 
-# For validation the order doesn't matter, so we'll just read them sequentially.
-test_dataloader = DataLoader(
-            test_dataset, # The validation samples.
-            sampler = SequentialSampler(test_dataset), # Pull out batches sequentially.
-            batch_size = batch_size # Evaluate with this batch size.
-        )
+# # For validation the order doesn't matter, so we'll just read them sequentially.
+# test_dataloader = DataLoader(
+#             test_dataset, # The validation samples.
+#             sampler = SequentialSampler(test_dataset), # Pull out batches sequentially.
+#             batch_size = batch_size # Evaluate with this batch size.
+#         )
 
 
 from transformers.optimization import get_linear_schedule_with_warmup
