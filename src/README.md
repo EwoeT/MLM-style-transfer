@@ -3,7 +3,7 @@
 Bert model is adapted from huggingface https://huggingface.co/transformers/model_doc/bert.html
 Bert fine-tuning codes are adapted from:https://mccormickml.com/2019/07/22/BERT-fine-tuning/
 
-## 1_bias_class_discriminator.ipynb: To train classifier for bias detection
+## bias_class_discriminator.ipynb: To train classifier for bias detection - Params:
 - train_dataset_path", required=True)
 - val_dataset_path", required=True)
 - sequence_length", type=int, default=100)
