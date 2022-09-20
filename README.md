@@ -11,7 +11,7 @@
 ```
 ./train_mitigation_model.sh "binary_classification_data.csv" "bias_only.train.en" "bias_only.dev.en" "neutral_only.train.en" "neutral_only.dev.en"
 ```
-## To use system:
+## To mitigate text:
 ```
 python f_TEST_bias_mitigation_MLM.py \
 -test_dataset_path "bias_only.test.en" \
