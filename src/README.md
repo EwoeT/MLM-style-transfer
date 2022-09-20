@@ -3,7 +3,7 @@
 Bert model is adapted from huggingface https://huggingface.co/transformers/model_doc/bert.html
 Bert fine-tuning codes are adapted from:https://mccormickml.com/2019/07/22/BERT-fine-tuning/
 
-## bias_class_discriminator.ipynb: To train classifier for bias detection
+## bias_class_discriminator.py: To train classifier for bias detection
 __Params:__
 
 - data_path", required=True
@@ -13,7 +13,7 @@ __Params:__
 - epochs", type=int, default=4
 - "batch_size", type=int, default=32
 
-## bias_classification_straight_through.ipynb: To trian classifier with straight through technique
+## bias_classification_straight_through.py: To trian classifier with straight through technique
 __Params:__
 
 - train_dataset_path, default="binary_bias_classification_train_dataset.pt"
@@ -24,7 +24,7 @@ __Params:__
 - epochs", type=int, default=4
 - batch_size", type=int, default=32
 
-## latent_embedding_classifier.ipynb: Trains classifier to detect if latent encoding is biased or neutral (in the case of bias mitigation) / male or female (in the case of gender obfuscation)
+## latent_embedding_classifier.py: Trains classifier to detect if latent encoding is biased or neutral (in the case of bias mitigation) / male or female (in the case of gender obfuscation)
 __Params:__
 
 - train_dataset_path", required=True
@@ -35,7 +35,7 @@ __Params:__
 - epochs", type=int, default=4
 - batch_size", type=int, default=32
 
-## generate_neutral_latent_representation.ipynb: Generates disentangled (neutral) latent representation
+## generate_neutral_latent_representation.py: Generates disentangled (neutral) latent representation
 __Params:__
 
 - train_dataset_path", required=True
@@ -47,7 +47,7 @@ __Params:__
 - batch_size", type=int, default=32
 - lambda1", type=float, default=0.5
 
-## bias_mitigation_MLM.ipynb: Main style transfer code
+## bias_mitigation_MLM.py: Main style transfer code
 __Params:__
 
 - train_dataset_path", required=True
