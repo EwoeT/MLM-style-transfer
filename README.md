@@ -15,7 +15,8 @@ Bert fine-tuning codes are adapted from:https://mccormickml.com/2019/07/22/BERT-
 ./train_mitigation_model.sh "binary_classification_data.csv" "bias_only.train.en" "bias_only.dev.en" "neutral_only.train.en" "neutral_only.dev.en"
 ```
 ## To mitigate text:
-!./mitigate_text.sh "bias_only.test.en" "mitigation_model.pth" "generate_neutral_latent_embedding_model.pth" "bias_class_discriminator.pth"
+```
+./mitigate_text.sh "bias_only.test.en" "mitigation_model.pth" "generate_neutral_latent_embedding_model.pth" "bias_class_discriminator.pth"
 ```
 
 # Requirements
