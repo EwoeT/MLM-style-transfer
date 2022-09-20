@@ -6,11 +6,11 @@ Bert fine-tuning codes are adapted from:https://mccormickml.com/2019/07/22/BERT-
 - Extracted sentences are available https://drive.google.com/drive/folders/1seAMJn3Fh8ZXhDpiW_ih7HDBlqHhIcnu?usp=sharing
 
 
-## To train all mitigation components using default parameters: 
+## To train all mitigation components using default parameters (To define parameters, see  __src__.
+): 
 - mitigation_model
 - generate_neutral_latent_embedding_model
 - bias_class_discriminator <br/>
-To define parameters, wee  __src__.
 
 ```
 ./train_mitigation_model.sh "binary_classification_data.csv" "bias_only.train.en" "bias_only.dev.en" "neutral_only.train.en" "neutral_only.dev.en"
