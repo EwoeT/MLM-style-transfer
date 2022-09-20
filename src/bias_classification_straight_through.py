@@ -25,8 +25,8 @@ else:
     
 
 parser = argparse.ArgumentParser()
-parser.add_argument("-train_dataset_path", required=True)
-parser.add_argument("-val_dataset_path", required=True)
+parser.add_argument("-train_dataset_path", default="binary_bias_classification_train_dataset.pt")
+parser.add_argument("-val_dataset_path", required="binary_bias_classification_val_dataset.pt")
 parser.add_argument("-sequence_length", type=int, default=100)
 parser.add_argument("-seed_value", type=int, default=42)
 parser.add_argument("-save_model_path", default="one_hot_classifier.pth")
