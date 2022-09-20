@@ -11,12 +11,12 @@ __Params:__
 - seed_value", type=int, default=42
 - save_model_path", default="one_hot_classifier.pth"
 - epochs", type=int, default=4
-- batch_size", type=int, default=32
+- "batch_size", type=int, default=32
 
 ## bias_classification_straight_through.ipynb: To trian classifier with straight through technique
 __Params:__
 
-- train_dataset_path", default="binary_bias_classification_train_dataset.pt"
+- train_dataset_path, default="binary_bias_classification_train_dataset.pt"
 - val_dataset_path", default="binary_bias_classification_val_dataset.pt"
 - sequence_length", type=int, default=100
 - seed_value", type=int, default=42
