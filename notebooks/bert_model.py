@@ -858,7 +858,7 @@ class BertModel(BertPreTrainedModel):
 
     @add_start_docstrings_to_model_forward(BERT_INPUTS_DOCSTRING.format("batch_size, sequence_length"))
     @add_code_sample_docstrings(
-        tokenizer_class=_TOKENIZER_FOR_DOC,
+        processor_class=_TOKENIZER_FOR_DOC,
         checkpoint="bert-base-uncased",
         output_type=BaseModelOutputWithPoolingAndCrossAttentions,
         config_class=_CONFIG_FOR_DOC,
@@ -1313,7 +1313,7 @@ class BertForMaskedLM(BertPreTrainedModel):
 
     @add_start_docstrings_to_model_forward(BERT_INPUTS_DOCSTRING.format("batch_size, sequence_length"))
     @add_code_sample_docstrings(
-        tokenizer_class=_TOKENIZER_FOR_DOC,
+        processor_class=_TOKENIZER_FOR_DOC,
         checkpoint="bert-base-uncased",
         output_type=MaskedLMOutput,
         config_class=_CONFIG_FOR_DOC,
@@ -1329,6 +1329,7 @@ class BertForMaskedLM(BertPreTrainedModel):
         inputs_embeds=None,
         encoder_hidden_states=None,
         encoder_attention_mask=None,
+        gamma=0.5
         labels=None,
         output_attentions=None,
         output_hidden_states=None,
@@ -1437,7 +1438,7 @@ class BertForMaskedLM(BertPreTrainedModel):
     
     
         #################### combine loses
-        gamma = 0.5
+        gamma = gamma
         total_loss = ((1-gamma)*(masked_lm_loss)) + (gamma*(bias_classification_loss))
         
 #         print(bias_classification_loss)
@@ -1501,7 +1502,7 @@ class BertForSequenceClassification(BertPreTrainedModel):
 
     @add_start_docstrings_to_model_forward(BERT_INPUTS_DOCSTRING.format("batch_size, sequence_length"))
     @add_code_sample_docstrings(
-        tokenizer_class=_TOKENIZER_FOR_DOC,
+        processor_class=_TOKENIZER_FOR_DOC,
         checkpoint="bert-base-uncased",
         output_type=SequenceClassifierOutput,
         config_class=_CONFIG_FOR_DOC,
@@ -1622,7 +1623,7 @@ class BertForSequenceClassification_bias_discriminator(BertPreTrainedModel):
 
     @add_start_docstrings_to_model_forward(BERT_INPUTS_DOCSTRING.format("batch_size, sequence_length"))
     @add_code_sample_docstrings(
-        tokenizer_class=_TOKENIZER_FOR_DOC,
+        processor_class=_TOKENIZER_FOR_DOC,
         checkpoint="bert-base-uncased",
         output_type=SequenceClassifierOutput,
         config_class=_CONFIG_FOR_DOC,
@@ -1723,7 +1724,7 @@ class BertForMaskedLM_bias_neutral_sentence_embedder(BertPreTrainedModel):
 
     @add_start_docstrings_to_model_forward(BERT_INPUTS_DOCSTRING.format("batch_size, sequence_length"))
     @add_code_sample_docstrings(
-        tokenizer_class=_TOKENIZER_FOR_DOC,
+        processor_class=_TOKENIZER_FOR_DOC,
         checkpoint="bert-base-uncased",
         output_type=SequenceClassifierOutput,
         config_class=_CONFIG_FOR_DOC,
@@ -1733,6 +1734,7 @@ class BertForMaskedLM_bias_neutral_sentence_embedder(BertPreTrainedModel):
         input_ids=None,
         attention_mask=None,
         token_type_ids=None,
+        lambda1=0.5,
         position_ids=None,
         head_mask=None,
         inputs_embeds=None,
@@ -1819,7 +1821,7 @@ class BertForMaskedLM_bias_neutral_sentence_embedder(BertPreTrainedModel):
            
         
 #################### combine loses
-        lambda1 = 0.7
+        # lambda1 = 0.5
         total_loss = ((1-lambda1)*(similarity_loss)) + (lambda1*(bias_classification_loss))
 
         return similarity_loss, bias_classification_loss, total_loss, bias_score, pooled_output, similar_sentence_pooled_output
