@@ -25,6 +25,7 @@ __Params:__
 - batch_size", type=int, default=32
 
 ## latent_embedding_classifier.ipynb: Trains classifier to detect if latent encoding is biased or neutral (in the case of bias mitigation) / male or female (in the case of gender obfuscation)
+__Params:__
 
 - train_dataset_path", required=True
 - val_dataset_path", required=True
@@ -35,6 +36,8 @@ __Params:__
 - batch_size", type=int, default=32
 
 ## generate_neutral_latent_representation.ipynb: Generates disentangled (neutral) latent representation
+__Params:__
+
 - train_dataset_path", required=True
 - val_dataset_path", required=True
 - sequence_length", type=int, default=100
@@ -45,6 +48,8 @@ __Params:__
 - lambda1", type=float, default=0.5
 
 ## bias_mitigation_MLM.ipynb: Main style transfer code
+__Params:__
+
 - train_dataset_path", required=True
 - val_dataset_path", required=True
 - test_dataset_path", required=True
