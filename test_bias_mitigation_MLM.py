@@ -30,9 +30,9 @@ else:
 
 parser = argparse.ArgumentParser()
 parser.add_argument("-test_dataset_path", required=True)
-parser.add_argument("-mitigation_model_path", default="src/mitigation_model.pth")
-parser.add_argument("-generate_neutral_latent_embedding_model_path", default="src/generate_neutral_latent_embedding_model.pth")
-parser.add_argument("-bias_class_discriminator_path", default="src/bias_class_discriminator.pth")
+parser.add_argument("-mitigation_model_path", default="mitigation_model.pth")
+parser.add_argument("-generate_neutral_latent_embedding_model_path", default="generate_neutral_latent_embedding_model.pth")
+parser.add_argument("-bias_class_discriminator_path", default="bias_class_discriminator.pth")
 parser.add_argument("-sequence_length", type=int, default=300)
 parser.add_argument("-seed_value", type=int, default=42)
 parser.add_argument("-output_path", default="output.txt")
