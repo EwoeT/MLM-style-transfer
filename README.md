@@ -22,6 +22,16 @@ python test_bias_mitigation_MLM.py \
 -generate_neutral_latent_embedding_model_path "src/generate_neutral_latent_embedding_model.pth" \
 -bias_class_discriminator_path "src/bias_class_discriminator.pth"
 ```
+__Params:__
+- test_dataset_path", required=True)
+- mitigation_model_path", default="src/mitigation_model.pth")
+- generate_neutral_latent_embedding_model_path", default="src/generate_neutral_latent_embedding_model.pth")
+- bias_class_discriminator_path", default="src/bias_class_discriminator.pth")
+- sequence_length", type=int, default=300)
+- seed_value", type=int, default=42)
+- threshold_value", type=float, default=0.1)
+- output_path", default="output.txt")
+
 
 # Requirements
 torch==1.12.1 <br/>
