@@ -916,7 +916,7 @@ class BertModel_for_one_hot(BertPreTrainedModel):
 
     @add_start_docstrings_to_model_forward(BERT_INPUTS_DOCSTRING.format("(batch_size, sequence_length)"))
     @add_code_sample_docstrings(
-        tokenizer_class=_TOKENIZER_FOR_DOC,
+        processor_class=_TOKENIZER_FOR_DOC,
         checkpoint="bert-base-uncased",
         output_type=BaseModelOutputWithPooling,
         config_class=_CONFIG_FOR_DOC,
@@ -1065,7 +1065,7 @@ class BertModel(BertPreTrainedModel):
 
     @add_start_docstrings_to_model_forward(BERT_INPUTS_DOCSTRING.format("batch_size, sequence_length"))
     @add_code_sample_docstrings(
-        tokenizer_class=_TOKENIZER_FOR_DOC,
+        processor_class=_TOKENIZER_FOR_DOC,
         checkpoint="bert-base-uncased",
         output_type=BaseModelOutputWithPooling,
         config_class=_CONFIG_FOR_DOC,
@@ -1187,7 +1187,7 @@ class BertForSequenceClassification(BertPreTrainedModel):
 
     @add_start_docstrings_to_model_forward(BERT_INPUTS_DOCSTRING.format("batch_size, sequence_length"))
     @add_code_sample_docstrings(
-        tokenizer_class=_TOKENIZER_FOR_DOC,
+        processor_class=_TOKENIZER_FOR_DOC,
         checkpoint="bert-base-uncased",
         output_type=SequenceClassifierOutput,
         config_class=_CONFIG_FOR_DOC,
@@ -1246,13 +1246,6 @@ class BertForSequenceClassification(BertPreTrainedModel):
         
         return loss, logits
 
-#         return SequenceClassifierOutput(
-#             loss=loss,
-#             logits=logits,
-#             hidden_states=outputs.hidden_states,
-#             attentions=outputs.attentions,
-#         )
-
 ######################################################## similarity detection #####################################################################
 
 class BertForSequenceClassification_similarity(BertPreTrainedModel):
@@ -1266,7 +1259,7 @@ class BertForSequenceClassification_similarity(BertPreTrainedModel):
 
     @add_start_docstrings_to_model_forward(BERT_INPUTS_DOCSTRING.format("batch_size, sequence_length"))
     @add_code_sample_docstrings(
-        tokenizer_class=_TOKENIZER_FOR_DOC,
+        processor_class=_TOKENIZER_FOR_DOC,
         checkpoint="bert-base-uncased",
         output_type=SequenceClassifierOutput,
         config_class=_CONFIG_FOR_DOC,
@@ -1321,78 +1314,7 @@ class BertForSequenceClassification_similarity(BertPreTrainedModel):
         sum_mask = torch.clamp(sum_mask, min=1e-9)
 
         output_vectors.append(sum_embeddings / sum_mask)
-#         output_vectors2 = output_vectors
-# #         output_vectors = [output_vectors]
-#         print(output_vectors2)
-#         cos = nn.CosineSimilarity(dim=1, eps=1e-8)
-#         similarity_loss = [cos(output_vectors_i, output_vectors2_i) for output_vectors_i, output_vectors2_i in zip(output_vectors, output_vectors2)]
-# #         similarity_loss = cosine_similarity(output_vectors.flatten(), output_vectors.flatten())
-#         return similarity_loss
-        return output_vectors
-# #         print("output_vectors \n ################# \n", output_vectors)
-#         ##########################
 
-# #         if output_value == 'token_embeddings':
-#         #Set token embeddings to 0 for padding tokens
-#         input_mask = attention_mask
-#         input_mask_expanded = input_mask.unsqueeze(-1).expand(embeddings.size()).float()
-#         embeddings = embeddings * input_mask_expanded
-        
-
-# #             embeddings = embeddings.detach()
-#         embeddings = embeddings
-#         print(embeddings.shape)
-
-#         # fixes for #522 and #487
-#         # to avoid oom problems on gpu with large datasets
-#         if convert_to_numpy:
-#             embeddings = embeddings.cpu()
-
-#         all_embeddings.extend(embeddings)
-
-#     all_embeddings = [all_embeddings[idx] for idx in np.argsort(length_sorted_idx)]
-
-#     if convert_to_tensor:
-#         all_embeddings = torch.stack(all_embeddings)
-#     elif convert_to_numpy:
-#         all_embeddings = np.asarray([emb.numpy() for emb in all_embeddings])
-
-#     if input_was_string:
-#         all_embeddings = all_embeddings[0]
-
-#     return all_embeddings
-        
-        
-
-#         pooled_output = outputs[1]
-
-#         pooled_output = self.dropout(pooled_output)
-#         logits = self.classifier(pooled_output)
-
-#         loss = None
-#         if labels is not None:
-#             if self.num_labels == 1:
-#                 #  We are doing regression
-#                 loss_fct = MSELoss()
-#                 loss = loss_fct(logits.view(-1), labels.view(-1))
-#             else:
-#                 loss_fct = CrossEntropyLoss()
-#                 loss = loss_fct(logits.view(-1, self.num_labels), labels.view(-1))
-
-#         if not return_dict:
-#             output = (logits,) + outputs[2:]
-#             return ((loss,) + output) if loss is not None else output
-
-#         return SequenceClassifierOutput(
-#             loss=loss,
-#             logits=logits,
-#             hidden_states=outputs.hidden_states,
-#             attentions=outputs.attentions,
-#         )
-
-
-    
-    
     
     
 ######################################################## masked_LM classification head class ############################################################################### 
@@ -1421,7 +1343,7 @@ class BertForMaskedLM(BertPreTrainedModel):
 
     @add_start_docstrings_to_model_forward(BERT_INPUTS_DOCSTRING.format("batch_size, sequence_length"))
     @add_code_sample_docstrings(
-        tokenizer_class=_TOKENIZER_FOR_DOC,
+        processor_class=_TOKENIZER_FOR_DOC,
         checkpoint="bert-base-uncased",
         output_type=MaskedLMOutput,
         config_class=_CONFIG_FOR_DOC,
@@ -1593,154 +1515,6 @@ def custom_replace(tensor):
     return res
 
 
-
-
-
-
-# ###################################################### bias mitigation class - no masked labels ############################################################
-
-
-# class BertForMaskedLM_bias_mitigation(BertPreTrainedModel):
-#     def __init__(self, config):
-#         super().__init__(config)
-
-#         if config.is_decoder:
-#             logger.warning(
-#                 "If you want to use `BertForMaskedLM` make sure `config.is_decoder=False` for "
-#                 "bi-directional self-attention."
-#             )
-
-#         self.num_labels = config.num_labels
-#         self.bert = BertModel(config)
-# #         self.cls = BertOnlyMLMHead(config)
-# #         self.dropout = nn.Dropout(config.hidden_dropout_prob)
-#         self.init_weights()
-#         self.cls = 
-#         self.bias_mitigation_classifier = torch.load("bias_detection_model.pth")
-#         for param in self.bias_mitigation_classifier.parameters():
-#             param.requires_grad = False
-        
-
-#     def get_output_embeddings(self):
-#         return self.cls.predictions.decoder
-
-
-    
-    
-    
-    
-#     @add_start_docstrings_to_model_forward(BERT_INPUTS_DOCSTRING.format("(batch_size, sequence_length)"))
-#     @add_code_sample_docstrings(
-#         tokenizer_class=_TOKENIZER_FOR_DOC,
-#         checkpoint="bert-base-uncased",
-#         output_type=MaskedLMOutput,
-#         config_class=_CONFIG_FOR_DOC,
-#     )
-#     def forward(
-#         self,
-#         input_ids=None,
-#         attention_mask=None,
-#         token_type_ids=None,
-#         position_ids=None,
-#         head_mask=None,
-#         inputs_embeds=None,
-#         encoder_hidden_states=None,
-#         encoder_attention_mask=None,
-#         labels=None,
-#         class_labels=None,
-#         output_attentions=None,
-#         output_hidden_states=None,
-#         return_dict=None,
-#         training_type=None,
-#         **kwargs
-#     ):
-#         r"""
-#         labels (:obj:`torch.LongTensor` of shape :obj:`(batch_size, sequence_length)`, `optional`, defaults to :obj:`None`):
-#             Labels for computing the masked language modeling loss.
-#             Indices should be in ``[-100, 0, ..., config.vocab_size]`` (see ``input_ids`` docstring)
-#             Tokens with indices set to ``-100`` are ignored (masked), the loss is only computed for the tokens with labels
-#             in ``[0, ..., config.vocab_size]``
-#         kwargs (:obj:`Dict[str, any]`, optional, defaults to `{}`):
-#             Used to hide legacy arguments that have been deprecated.
-#         """
-#         if "masked_lm_labels" in kwargs:
-#             warnings.warn(
-#                 "The `masked_lm_labels` argument is deprecated and will be removed in a future version, use `labels` instead.",
-#                 FutureWarning,
-#             )
-#             labels = kwargs.pop("masked_lm_labels")
-#         assert "lm_labels" not in kwargs, "Use `BertWithLMHead` for autoregressive language modeling task."
-#         assert kwargs == {}, f"Unexpected keyword arguments: {list(kwargs.keys())}."
-        
-#         return_dict = return_dict if return_dict is not None else self.config.use_return_dict
-
-#         outputs = self.bert(
-#             input_ids,
-#             attention_mask=attention_mask,
-#             token_type_ids=token_type_ids,
-#             position_ids=position_ids,
-#             head_mask=head_mask, 
-#             inputs_embeds=inputs_embeds,
-#             encoder_hidden_states=encoder_hidden_states,
-#             encoder_attention_mask=encoder_attention_mask,
-#             output_attentions=output_attentions,
-#             output_hidden_states=output_hidden_states,
-#             return_dict=return_dict,
-#         )
-
-        
-#         total_loss = None
-# #  Masked LM phase
-#         attention_maskk = attention_mask.reshape(len(input_ids), 80, 1)
-#         sequence_output = outputs[0]*attention_maskk
-# #         sequence_output = outputs[0]
-#         masked_prediction_scores = self.cls(sequence_output)
-#         norm_masked_prediction_scores = softmax_trick(masked_prediction_scores, tau=100, hard=True, dim=2)
-# #         norm_masked_prediction_scores = m(masked_prediction_scores/0.1)
-# #         calculate masked LM loss
-#         if labels is not None:
-#             loss_fct = CrossEntropyLoss()  # -100 index = padding token
-# #             masked_lm_loss = loss_fct(masked_prediction_scores.view(-1, self.config.vocab_size), labels.view(-1))
-
-        
-# #         return masked_lm_loss, masked_prediction_scores
-
-
-# # Bias classification phase
-# #         print(norm_masked_prediction_scores.shape)
-#         bias_score = self.bias_mitigation_classifier(norm_masked_prediction_scores, 
-#                                  token_type_ids=None, 
-#                                  attention_mask=attention_mask,)
-        
-
-# # #          calculate bias loss binary classification 
-# #         class_labels = torch.FloatTensor(np.array([0.5]*len(masked_prediction_scores))).to(device)
-# #         bias_score = bias_score[0]
-# #         if class_labels is not None:
-# #             MSE_loss_fct = MSELoss()
-# #             m = nn.Softmax(dim=1)
-# #             norm_bias_score = m(bias_score)
-# #             bias_classification_loss = MSE_loss_fct(norm_bias_score[:,:1].view(-1), class_labels.view(-1))
-            
-            
-            
-# #             calculate bias loss multiclass classification
-#         bias_score = bias_score[0]
-# #         print(bias_score)
-#         class_labels = torch.LongTensor(np.array([2]*len(masked_prediction_scores))).to(device)
-#         if class_labels is not None:
-#             bias_classification_loss = loss_fct(bias_score.view(-1, self.num_labels), class_labels.view(-1))
-            
-
-
-    
-# # total loss: join masked loss and bias loss        
-#         alpha = 1
-# #         total_loss = (0.01*masked_lm_loss) + (alpha * (bias_classification_loss))
-#         total_loss =(alpha * (bias_classification_loss))
-
-#         return masked_lm_loss, (alpha * (bias_classification_loss)), total_loss, masked_prediction_scores, bias_score
-
 #  ########################################################################################
 
 
@@ -1802,7 +1576,7 @@ class BertForMaskedLM_bias_mitigation(BertPreTrainedModel):
 
     @add_start_docstrings_to_model_forward(BERT_INPUTS_DOCSTRING.format("batch_size, sequence_length"))
     @add_code_sample_docstrings(
-        tokenizer_class=_TOKENIZER_FOR_DOC,
+        processor_class=_TOKENIZER_FOR_DOC,
         checkpoint="bert-base-uncased",
         output_type=SequenceClassifierOutput,
         config_class=_CONFIG_FOR_DOC,
@@ -1909,25 +1683,8 @@ class BertForMaskedLM_bias_mitigation(BertPreTrainedModel):
         if similarity_labels is not None:
             mse_loss = nn.MSELoss()
             similarity_loss = (mse_loss(cosine_similarity, similarity_labels.view(-1)))
-            
-# #################### calculate bias loss
-#         self.bias_detection_model.eval()
-#         bias_score = self.bias_detection_model(pooled_output)
 
-#         class_labels = torch.LongTensor(np.array([2]*len(bias_score))).to(device)
-#         if class_labels is not None:
-#             loss_fct = CrossEntropyLoss()
-#             bias_classification_loss = loss_fct(bias_score.view(-1, 3), class_labels.view(-1))
-           
-        
-# #################### combine loses
-#         alpha = 0.5
-#         total_loss = ((1-alpha)*(similarity_loss)) + (alpha*(bias_classification_loss))
-        
-#         print(bias_classification_loss)
-#         return similarity_loss, bias_classification_loss, total_loss, token_embeddings, bias_score, pooled_output, similar_sentence_pooled_output
         return similarity_loss, similarity_loss, similarity_loss, token_embeddings, pooled_output, similar_sentence_pooled_output
 
 
  ########################################################################################
-
