@@ -60,3 +60,14 @@ __Params:__
 - epochs", type=int, default=4
 - batch_size", type=int, default=32
 
+## test_bias_mitigation_MLM.py: to run mitigation on text
+__Params:__
+
+- test_dataset_path", required=True)
+- mitigation_model_path", default="mitigation_model.pth")
+- generate_neutral_latent_embedding_model_path", default="generate_neutral_latent_embedding_model.pth")
+- bias_class_discriminator_path", default="bias_class_discriminator.pth")
+- sequence_length", type=int, default=300)
+- seed_value", type=int, default=42)
+- threshold_value", type=float, default=0.1)
+- output_path", default="output.txt")
