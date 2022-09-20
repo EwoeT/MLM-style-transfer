@@ -8,7 +8,7 @@
 - mitigation_model
 - generate_neutral_latent_embedding_model
 - bias_class_discriminator <br/>
-TO define parameters, wee  __src__.
+ToO define parameters, wee  __src__.
 
 ```
 ./train_mitigation_model.sh "binary_classification_data.csv" "bias_only.train.en" "bias_only.dev.en" "neutral_only.train.en" "neutral_only.dev.en"
