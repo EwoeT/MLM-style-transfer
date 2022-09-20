@@ -18,15 +18,15 @@ Bert fine-tuning codes are adapted from:https://mccormickml.com/2019/07/22/BERT-
 ```
 python test_bias_mitigation_MLM.py \
 -test_dataset_path "bias_only.test.en" \
--mitigation_model_path "src/mitigation_model.pth" \
--generate_neutral_latent_embedding_model_path "src/generate_neutral_latent_embedding_model.pth" \
--bias_class_discriminator_path "src/bias_class_discriminator.pth"
+-mitigation_model_path "mitigation_model.pth" \
+-generate_neutral_latent_embedding_model_path "generate_neutral_latent_embedding_model.pth" \
+-bias_class_discriminator_path "bias_class_discriminator.pth"
 ```
 __Params:__
 - test_dataset_path", required=True)
-- mitigation_model_path", default="src/mitigation_model.pth")
-- generate_neutral_latent_embedding_model_path", default="src/generate_neutral_latent_embedding_model.pth")
-- bias_class_discriminator_path", default="src/bias_class_discriminator.pth")
+- mitigation_model_path", default="mitigation_model.pth")
+- generate_neutral_latent_embedding_model_path", default="generate_neutral_latent_embedding_model.pth")
+- bias_class_discriminator_path", default="bias_class_discriminator.pth")
 - sequence_length", type=int, default=300)
 - seed_value", type=int, default=42)
 - threshold_value", type=float, default=0.1)
